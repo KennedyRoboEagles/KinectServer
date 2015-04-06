@@ -1,0 +1,27 @@
+﻿<Window x:Class="Edu.FIRST.WPI.Kinect.KinectServer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:Edu.FIRST.WPI.Kinect.KinectServer"
+        Icon="KinectExplorer.ico" Title="Kinect Explorer - Console"
+        SizeToContent="WidthAndHeight"  WindowStartupLocation="CenterScreen"
+        MinWidth="200" MinHeight="100"
+        Loaded="Window_Loaded" Closed="Window_Closed" DataContext="{Binding}">
+    <Window.Resources>
+    </Window.Resources>
+    <StackPanel>
+            <StackPanel Name="InsertKinect" Width="400"  Margin="0,0,0,22" Grid.RowSpan="2">
+                <Image Margin="20" Source="Images\RequiresKinectSensor.png" 
+                       Width="160" HorizontalAlignment="Center"/>
+            
+                <TextBlock FontSize="24" FontStyle="Italic"
+                           TextWrapping="Wrap"
+                           HorizontalAlignment="Center">
+                    Please insert a Kinect Sensor into your PC. 
+                </TextBlock>
+            </StackPanel>
+            <TextBox FontWeight="Bold" FontSize ="16" 
+                     Grid.Row="1" MaxHeight="300" Name="sensorStatusChanges" 
+                     MinHeight="100" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                     ScrollViewer.CanContentScroll="True" IsManipulationEnabled="True" IsReadOnly="True" />
+        </StackPanel>
+</Window>
