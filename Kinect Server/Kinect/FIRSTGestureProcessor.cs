@@ -18,6 +18,7 @@ using System.Text;
 using System.Linq;
 using Microsoft.Kinect;
 using Edu.FIRST.WPI.Kinect.KinectServer.Networking.WritableElements;
+using Edu.FIRST.WPI.Kinect.KinectServer.Networking.Networktables;
 
 namespace Edu.FIRST.WPI.Kinect.KinectServer.Kinect
 {
@@ -154,12 +155,15 @@ namespace Edu.FIRST.WPI.Kinect.KinectServer.Kinect
 
                 joy[0].Set(leftAxis, buttons);
                 joy[1].Set(rightAxis, buttons);
+
+                NTKinect.UpdateJoysticks(0.0, leftYAxis, 0.0, rightYAxis);
             }
             else
             {
                 joy[0].Set(nullAxis, 0);
                 joy[1].Set(nullAxis, 0);
-                
+
+                NTKinect.UpdateJoysticks(0.0, 0.0, 0.0, 0.0);
             }
         }
 

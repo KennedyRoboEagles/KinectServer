@@ -20,6 +20,7 @@ using Edu.FIRST.WPI.Kinect.KinectServer.Kinect;
 using Microsoft.Kinect;
 using Edu.FIRST.WPI.Kinect.KinectServer.Networking.WritableElements;
 using Edu.FIRST.WPI.Kinect.KinectServer;
+using Edu.FIRST.WPI.Kinect.KinectServer.Networking.Networktables;
 
 namespace Edu.FIRST.WPI.Kinect.KinectServer.Networking.Protocols
 {
@@ -61,6 +62,9 @@ namespace Edu.FIRST.WPI.Kinect.KinectServer.Networking.Protocols
             m_heartbeatTimer = new Timer(this.HeartBeatExpired);
             m_heartbeatTimer.Change(HEARTBEAT_PERIOD_MS, HEARTBEAT_PERIOD_MS);
             m_gestureProcessor = new FIRSTGestureProcessor();
+
+            NTKinect.Init();
+
         }
 
         /// <summary>
@@ -148,6 +152,7 @@ namespace Edu.FIRST.WPI.Kinect.KinectServer.Networking.Protocols
 
             Send();
             m_heartbeatTimer.Change(HEARTBEAT_PERIOD_MS, HEARTBEAT_PERIOD_MS);
+            NTKinect.UpdateHeartBeat();
         }
 
         /// <summary>
@@ -234,6 +239,7 @@ namespace Edu.FIRST.WPI.Kinect.KinectServer.Networking.Protocols
             m_version1Packet.Joystick1.Set(nullAxis, 0);
             m_version1Packet.Joystick2.Set(nullAxis, 0);
             Send();
+            NTKinect.UpdateJoysticks(0.0, 0.0, 0.0, 0.0);
         }
 
         /// <summary>
@@ -249,6 +255,8 @@ namespace Edu.FIRST.WPI.Kinect.KinectServer.Networking.Protocols
                 {
                     m_version1Packet.VersionNumber.Set(m_kinectStatus);
                     m_version1Packet.Serialize(writer);
+
+                    NTKinect.UpdateFromPacket(m_version1Packet);
                 }
 
                 m_udpClient.Send(udpbuffer.GetBuffer(), (int)udpbuffer.Length, m_hostname, m_port);

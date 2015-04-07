@@ -19,6 +19,11 @@ namespace Edu.FIRST.WPI.Kinect.KinectServer.Networking.WritableElements
     class WritableVersionNumber : IBinaryWritable
     {
         protected String m_version;
+
+        public String Get()
+        {
+            return m_version;
+        }
        
         public WritableVersionNumber(String versionNumber)
         {
